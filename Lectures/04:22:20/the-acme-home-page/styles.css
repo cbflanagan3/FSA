@@ -1,0 +1,61 @@
+html {
+    font-family: Arial;
+    margin: 0 auto;
+    max-width: 1024px;
+    width: 100%;
+}
+
+body {
+    background-color: whitesmoke;
+}
+
+.about h2 {
+    background-color: red;
+    color: white;
+    padding: 8px;
+}
+
+.header {
+    background-color: dodgerblue;
+    color: white;
+    padding: 6px;
+    text-align: center;
+}
+
+.about ul {
+    padding: 0;
+}
+
+.about ul li {
+    list-style-type: none;
+}
+
+.about.colors ul li {
+    background-color: silver;
+    margin-top: 10px;
+}
+
+.about.colors ul li::before {
+    content: "\25A0";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+    color: red; /* Change the color */
+    font-weight: bold; /* If you want it to be bold */
+    display: inline-block; /* Needed to add space between the bullet and the text */
+    font-size: 60px;
+}
+
+.about.colors ul li:nth-child(2)::before {
+    content: "\25A0";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+    color: dodgerblue; /* Change the color */
+    font-weight: bold; /* If you want it to be bold */
+    display: inline-block; /* Needed to add space between the bullet and the text */
+    font-size: 60px;
+}
+
+.about.team img {
+    border: 1px solid black;
+    border-radius: 50%;
+    height: 160px;
+    object-fit: scale-down;
+    width: 160px;
+}
+

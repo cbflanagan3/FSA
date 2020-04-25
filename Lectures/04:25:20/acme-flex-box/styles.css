@@ -1,0 +1,50 @@
+body {
+    font-family: Arial;
+    margin: 0 auto;
+    padding: 1% 2%;
+}
+
+.nav {
+    align-items: center;
+    background-color: dodgerblue;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1%;;
+}
+
+.nav h2 {
+    font-size: 16px;
+}
+
+.form-container {
+    align-items: left;
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    border: 1px solid black;
+    padding: 1% 1%;
+    width: 30%;
+}
+
+.form-example {
+
+}
+
+.boxes{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.box {
+    border: 1px solid black;
+    box-sizing: border-box;
+    height: 300px;
+    width: calc(100%/3 - 2rem);
+}
+
+
+
