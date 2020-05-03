@@ -1,206 +1,139 @@
 const app = document.querySelector('#app');
+const boxes = document.querySelectorAll('#lists > *');
+
+const slots = ['first', 'second', 'third'];
 
 const users = [
-    {id: 1, name: 'moe', slot: 'second'},
-    {id: 2, name: 'larry', slot: 'first'},
+    {id: 1, name: 'moe', slot: 'first'},
+    {id: 2, name: 'larry', slot: 'second'},
     {id: 3, name: 'curly', slot: 'third'},
     {id: 4, name: 'lucy', slot: 'third', selected: true}                    
 ];
 
 const create = (type) => { return document.createElement(type) }
 
-const createHeader = () => {
-    const header = create('h1');
+const updateBox = (arg) => {
+
+    const userName = createName();
+    const leftButton = createButtons()[0];
+    const rightButton = createButtons()[1];
+
+    const boxId = arg.id;
+
+    arg.append(leftButton);
+    arg.append(rightButton);
+
+    users.forEach((index) => {
+        if(index.slot === boxId){
+            userName.innerText = index.name;
+        }
+    });
     
-    app.append(header);
-
-    header.innerText = 'Acme First, Second, Third';
-
-    return header;
+    arg.append(userName);
+    selection(userName);
 }
 
-const createBoxesContainer = () => {
-    const boxesContainer = create('div');
+const createButtons = () => {
+
+    const leftButton = create('button');
+    const rightButton = create('button');
     
-    boxesContainer.classList.add('boxes-container');
+    leftButton.classList.add('left');
+    rightButton.classList.add('right');    
+
+    leftButton.innerText = '<';
+    rightButton.innerText = '>';
+
+    leftButton.addEventListener('click', () => {
+        buttonHandler(leftButton);
+    });
     
-    app.append(boxesContainer);
+    rightButton.addEventListener('click', () => {
+        buttonHandler(rightButton);
+    });
     
-    return boxesContainer;
+    return [leftButton, rightButton];
+
 }
 
-const createBox = (arg) => {
-    const boxesContainer = document.querySelector('.boxes-container');
-
-    const box = create('div');
-    const leftArrow = create('button');
-    const rightArrow = create('button');
+const createName = () => {
     const user = create('p');
-    
-    box.classList.add('box', arg.slot); // add a class of arg.slot ('first', 'second',' third') to each div.
-    leftArrow.classList.add('left', 'arrow');
-    rightArrow.classList.add('right', 'arrow');
+
     user.classList.add('user');
-    
-    leftArrow.innerText = '<';
-    rightArrow.innerText = '>';
-    
-    box.append(leftArrow);
-    box.append(rightArrow);
-    box.append(user);
-    boxesContainer.append(box);
 
-    const boxes = document.querySelectorAll('.box');
-
-    users.forEach((ind)=>{                // checks to see if box class has 'first', 'second', 'third'. Then push the names whose slot corresponds with the class of the div.
-        boxes.forEach((index)=>{
-            if(index.classList.contains(ind.slot)){
-                user.innerText = ind.name;
-            } 
-        });
-    })
-
-    leftArrow.addEventListener('click', ()=>{
-        arrowHandler(leftArrow, arg);
-    });
-    
-    rightArrow.addEventListener('click', ()=>{
-        arrowHandler(rightArrow, arg);
-    });
-
-    nameHandler(user);
-    return box;
+    return user;
 }
 
+const selection = (arg) => {
 
-const nameHandler = (arg) => {
+    const selected = document.querySelectorAll('.selected');
+    
+    users.forEach((index) => {
+        if(index.selected === true){
+            if(arg.parentNode.id === index.slot){
+            arg.classList.add('selected');
+            }
+        } 
+    });
+
     arg.addEventListener('click', function(){
-        users.forEach((index)=>{
-            if(this.innerText === index.name){
-                this.classList.toggle('selected');
+        users.forEach((index) => {
+            if(index.name === arg.innerText){
                 index.selected = !index.selected;
-                console.log(index, this);
+                this.classList.toggle('selected');
+                render();
+            }    
+        })
+    });   
+}
+
+const buttonHandler = (arg) => {
+
+    const selected = document.querySelectorAll('.selected');
+
+    if(arg.className === 'right'){
+        users.forEach((ind) => {
+            if(ind.selected === true){
+                if(ind.slot === 'first'){
+                    ind.slot = 'second';
+                    console.log(ind);
+                } else if(ind.slot === 'second'){
+                    ind.slot = 'third';
+                    console.log(ind);
+                } else if(ind.slot === 'third'){
+                    console.log(ind);
+                }
+                render();
             }
         });
-    });
+        render();
+    }
+
+    if(arg.className === 'left'){
+        users.forEach((ind) => {
+            if(ind.selected === true){
+                if(ind.slot === 'third'){
+                    ind.slot = 'second';
+                    console.log(ind);
+                } else if(ind.slot === 'second'){
+                    ind.slot = 'first';
+                    console.log(ind);
+                } else if(ind.slot === 'first'){
+                    console.log(ind);
+                }
+                render();
+            }
+        });
+        render();
+    }
+
 }
 
-
 const render = () => {
-    app.innerHTML = '';
-
-    createHeader();
-    createBoxesContainer();
-
-    users.forEach((index)=>{
-        createBox(index);
+    boxes.forEach((box)=>{
+        box.innerHTML = '';
+        updateBox(box);
     })
-
 }
 
 render();
-
-
-
-
-
-
-
-
-
-
-
-
-// disregard
-
-
-// Tried adding the 'first, 'second', 'third' classes manually, still the same outcome...
-
-// const boxes = document.querySelectorAll('.box');
-// const userNames = document.querySelectorAll('.user');
-
-// const boxClass = () => {
-//     boxes[0].classList.add('first');
-//     boxes[1].classList.add('second');
-//     boxes[2].classList.add('third');
-// }
-
-
-// const setName = () => {
-//     console.log(userNames[1].parentNode.classList.contains(users[1].slot));
-//     for(let i=0;i<users.length;i++){
-//         // console.log(users[i]);
-//         for(let j=0;j<userNames.length;j++){
-//             console.log(userNames[j]);
-//             if(userNames[j].parentNode.classList.contains(users[i].slot)){
-//                 userNames[j].innerText = users[i].name;
-//             }
-//         }
-//     }
-// }
-
-// boxClass();
-// setName();
-
-// move up later
-
-
-// const arrowHandler = (el, arg) => {
-//     const parentNode = el.parentNode;
-//     const selected = document.querySelectorAll('.selected');
-//     // const boxes = document.querySelectorAll('.box');
-
-//     if(parentNode.classList.contains('first') && el.classList.contains('right')){
-//         selected.forEach((index) => {
-//             users.forEach((ind) => {
-//                 if(index.innerText === ind.name){
-//                     ind.slot = 'second';
-//                     console.log(ind, ind.slot);
-//                     render();
-//                 }
-//             });
-//         });
-//     } else if(parentNode.classList.contains('second') && el.classList.contains('right')){
-//         selected.forEach((index) => {
-//             users.forEach((ind) => {
-//                 if(index.innerText === ind.name){
-//                     ind.slot = 'third';
-//                     console.log(ind, ind.slot);
-//                     render();
-//                 }
-//             });
-//         });
-//     } else if(parentNode.classList.contains('third') && el.classList.contains('left')){
-//         selected.forEach((index) => {
-//             users.forEach((ind) => {
-//                 if(index.innerText === ind.name){
-//                     ind.slot = 'second';
-//                     console.log(ind, ind.slot);
-//                     render();
-//                 }
-//             });
-//         });
-//     } else if(parentNode.classList.contains('second') && el.classList.contains('left')){
-//         selected.forEach((index) => {
-//             users.forEach((ind) => {
-//                 if(index.innerText === ind.name){
-//                     ind.slot = 'first';
-//                     console.log(ind, ind.slot);
-//                     render();
-//                 }
-//             });
-//         });
-//     }
-
-
-    // for(let j=0;j<selected.length;j++){
-    //     for(let i=0;i<boxes.length;i++){
-    //         if(arg.classList.contains('right')){
-    //             boxes[i].append(selected[j]);
-    //         } else {
-    //             boxes[i-1].append()
-    //         }        
-    //     }
-    // } 
-    
-// }
