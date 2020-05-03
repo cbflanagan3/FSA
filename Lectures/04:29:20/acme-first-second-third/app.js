@@ -1,7 +1,7 @@
 const app = document.querySelector('#app');
 const boxes = document.querySelectorAll('#lists > *');
 
-const slots = ['first', 'second', 'third'];
+const slots = ['first', 'second', 'third']; // didn't use this...
 
 const users = [
     {id: 1, name: 'moe', slot: 'first'},
@@ -14,23 +14,23 @@ const create = (type) => { return document.createElement(type) }
 
 const updateBox = (arg) => {
 
-    const userName = createName();
     const leftButton = createButtons()[0];
     const rightButton = createButtons()[1];
-
+    
     const boxId = arg.id;
-
+    
     arg.append(leftButton);
     arg.append(rightButton);
     
     users.forEach((index) => {
+        const userName = createName();
         if(index.slot === boxId){
             userName.innerText = index.name; // sets text inside paragraph 
             arg.append(userName); // appends user name
+            selection(userName);
         }
     });
     
-    selection(userName);
 }
 
 const createButtons = () => {
@@ -69,11 +69,11 @@ const createName = () => {
 const selection = (arg) => {
 
     const selected = document.querySelectorAll('.selected');
-    
+
     users.forEach((index) => {
         if(index.selected === true){
-            if(arg.parentNode.id === index.slot){
-            arg.classList.add('selected');
+            if(arg.parentNode.id === index.slot && index.name === arg.innerText){
+            arg.classList.toggle('selected');
             }
         } 
     });

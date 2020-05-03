@@ -2,13 +2,21 @@
     font-family: Arial;
 }
 
+body {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
 #lists {
     display: flex;
+    justify-content: space-around;
 }
 
 #lists > div {
     border: 1px solid black;
-    width: 100%;
+    padding: 1%;
+    width: 30%;
 }
 
 button {
@@ -17,7 +25,8 @@ button {
 }
 
 .user {
-    margin: 0;
+    border: 1px solid black;
+    margin: 10px 0;
     padding: 6%;
     text-align: center;
 }
