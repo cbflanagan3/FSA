@@ -37,7 +37,7 @@ const createBox = (arg) => {
     const rightArrow = create('button');
     const user = create('p');
     
-    box.classList.add('box', arg.slot);
+    box.classList.add('box', arg.slot); // add a class of arg.slot ('first', 'second',' third') to each div.
     leftArrow.classList.add('left', 'arrow');
     rightArrow.classList.add('right', 'arrow');
     user.classList.add('user');
@@ -52,7 +52,7 @@ const createBox = (arg) => {
 
     const boxes = document.querySelectorAll('.box');
 
-    users.forEach((ind)=>{
+    users.forEach((ind)=>{                // checks to see if box class has 'first', 'second', 'third'. Then push the names whose slot corresponds with the class of the div.
         boxes.forEach((index)=>{
             if(index.classList.contains(ind.slot)){
                 user.innerText = ind.name;
