@@ -37,8 +37,13 @@ const createBox = (arg) => {
     const leftArrow = create('button');
     const rightArrow = create('button');
     const user = create('p');
-    
-    box.classList.add('box', arg);
+
+    const boxClass = ['first', 'second', 'third'];
+
+    // for(let i=0;i<boxClass.length;i++){
+        // }
+        
+    box.classList.add('box', arg.slot);
     leftArrow.classList.add('left', 'arrow');
     rightArrow.classList.add('right', 'arrow');
     user.classList.add('user');
@@ -51,21 +56,15 @@ const createBox = (arg) => {
     box.append(user);
     boxesContainer.append(box);
 
-    const boxes = document.querySelectorAll('.box');
+    if(box.classList.contains(arg.slot)){
+        user.innerText = arg.name;
+    }
 
-    users.forEach((ind)=>{
-        boxes.forEach((index)=>{
-            if(index.classList.contains(ind.slot)){
-                user.innerText = ind.name;
-            } 
-        });
-    })
-
-    leftArrow.addEventListener('click', ()=>{
+    leftArrow.addEventListener('click', (event) => {
         arrowHandler(leftArrow, arg);
     });
     
-    rightArrow.addEventListener('click', ()=>{
+    rightArrow.addEventListener('click', (event)=>{
         arrowHandler(rightArrow, arg);
     });
 
@@ -73,32 +72,64 @@ const createBox = (arg) => {
     return box;
 }
 
+
 // const arrowHandler = (el, arg) => {
 //     const parentNode = el.parentNode;
 //     const selected = document.querySelectorAll('.selected');
 //     // const boxes = document.querySelectorAll('.box');
-    
 
-//     // selected.forEach((index) => {
-//     //     console.log(index); 
-//     //     users.forEach((ind) => {
-//     //         console.log(ind.slot);
-//     //         if(index.innerText === ind.name){
-//     //             ind.slot = 'second';
-//     //             render
-//     //         }
-//     //     });
-//     // });
+//     if(parentNode.classList.contains('first') && el.classList.contains('right')){
+//         selected.forEach((index) => {
+//             users.forEach((ind) => {
+//                 if(index.innerText === ind.name){
+//                     ind.slot = 'second';
+//                     console.log(ind, ind.slot);
+//                     render();
+//                 }
+//             });
+//         });
+//     } else if(parentNode.classList.contains('second') && el.classList.contains('right')){
+//         selected.forEach((index) => {
+//             users.forEach((ind) => {
+//                 if(index.innerText === ind.name){
+//                     ind.slot = 'third';
+//                     console.log(ind, ind.slot);
+//                     render();
+//                 }
+//             });
+//         });
+//     } else if(parentNode.classList.contains('third') && el.classList.contains('left')){
+//         selected.forEach((index) => {
+//             users.forEach((ind) => {
+//                 if(index.innerText === ind.name){
+//                     ind.slot = 'second';
+//                     console.log(ind, ind.slot);
+//                     render();
+//                 }
+//             });
+//         });
+//     } else if(parentNode.classList.contains('second') && el.classList.contains('left')){
+//         selected.forEach((index) => {
+//             users.forEach((ind) => {
+//                 if(index.innerText === ind.name){
+//                     ind.slot = 'first';
+//                     console.log(ind, ind.slot);
+//                     render();
+//                 }
+//             });
+//         });
+//     }
 
-//     // for(let j=0;j<selected.length;j++){
-//     //     for(let i=0;i<boxes.length;i++){
-//     //         if(arg.classList.contains('right')){
-//     //             boxes[i].append(selected[j]);
-//     //         } else {
-//     //             boxes[i-1].append()
-//     //         }        
-//     //     }
-//     // } 
+
+    // for(let j=0;j<selected.length;j++){
+    //     for(let i=0;i<boxes.length;i++){
+    //         if(arg.classList.contains('right')){
+    //             boxes[i].append(selected[j]);
+    //         } else {
+    //             boxes[i-1].append()
+    //         }        
+    //     }
+    // } 
     
 // }
 
@@ -118,17 +149,12 @@ const nameHandler = (arg) => {
 const render = () => {
     app.innerHTML = '';
 
-    let order = ['first', 'second', 'third'];
-
     createHeader();
     createBoxesContainer();
     
-    for(let i=0;i<order.length;i++){
-        createBox(order[i]);
-    }
-    
-    // users.forEach((index)=>{
-    // })
+    users.forEach((index)=>{
+        createBox(index);
+    })
 
 }
 

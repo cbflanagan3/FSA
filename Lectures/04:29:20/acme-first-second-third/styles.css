@@ -15,6 +15,10 @@
     width: 33%;
 }
 
+.box {
+    border: 1px solid black;
+}
+
 .arrow {
     text-align: center;
     padding: 6%;
