@@ -23,10 +23,10 @@ const updateBox = (arg) => {
     arg.append(rightButton);
     
     users.forEach((index) => {
-        const userName = createName();
+        const userName = createName(); // THANK YOU
         if(index.slot === boxId){
-            userName.innerText = index.name; // sets text inside paragraph 
-            arg.append(userName); // appends user name
+            userName.innerText = index.name;
+            arg.append(userName);
             selection(userName);
         }
     });
