@@ -7,7 +7,7 @@ const users = [
     {id: 1, name: 'moe', slot: 'first'},
     {id: 2, name: 'larry', slot: 'second'},
     {id: 3, name: 'curly', slot: 'third'},
-    {id: 4, name: 'lucy', slot: 'third', selected: true}                    
+    {id: 4, name: 'lucy', slot: 'third', selected: true} //if there are two of the same name (e.g. two 'lucy's, then both won't be selectable..                   
 ];
 
 const create = (type) => { return document.createElement(type) }
@@ -17,20 +17,17 @@ const updateBox = (arg) => {
     const leftButton = createButtons()[0];
     const rightButton = createButtons()[1];
     
-    const boxId = arg.id;
-    
     arg.append(leftButton);
     arg.append(rightButton);
     
     users.forEach((index) => {
         const userName = createName(); // THANK YOU
-        if(index.slot === boxId){
-            userName.innerText = index.name;
+        if(index.slot === arg.id){
             arg.append(userName);
+            userName.innerText = index.name;
             selection(userName);
         }
     });
-    
 }
 
 const createButtons = () => {
@@ -135,8 +132,6 @@ const render = () => {
 render();
 
 const html = document.querySelector('html');
-
-// html.style.backgroundColor = 'black';
 
 html.addEventListener('mouseover', (event) => { //sorry for the eye sore
     let x = event.clientX;
