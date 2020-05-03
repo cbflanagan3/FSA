@@ -22,14 +22,15 @@ const updateBox = (arg) => {
 
     arg.append(leftButton);
     arg.append(rightButton);
-
+    
     users.forEach((index) => {
         if(index.slot === boxId){
-            userName.innerText = index.name;
+            userName.innerText = index.name; // sets text inside paragraph 
         }
     });
     
-    arg.append(userName);
+    arg.append(userName); // appends user name
+
     selection(userName);
 }
 
@@ -96,13 +97,9 @@ const buttonHandler = (arg) => {
             if(ind.selected === true){
                 if(ind.slot === 'first'){
                     ind.slot = 'second';
-                    console.log(ind);
                 } else if(ind.slot === 'second'){
                     ind.slot = 'third';
-                    console.log(ind);
-                } else if(ind.slot === 'third'){
-                    console.log(ind);
-                }
+                } 
                 render();
             }
         });
@@ -114,13 +111,9 @@ const buttonHandler = (arg) => {
             if(ind.selected === true){
                 if(ind.slot === 'third'){
                     ind.slot = 'second';
-                    console.log(ind);
                 } else if(ind.slot === 'second'){
                     ind.slot = 'first';
-                    console.log(ind);
-                } else if(ind.slot === 'first'){
-                    console.log(ind);
-                }
+                } 
                 render();
             }
         });
