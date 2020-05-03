@@ -1,4 +1,5 @@
 const app = document.querySelector('#app');
+
 const boxes = document.querySelectorAll('#lists > *');
 
 const slots = ['first', 'second', 'third']; // didn't use this...
