@@ -26,11 +26,10 @@ const updateBox = (arg) => {
     users.forEach((index) => {
         if(index.slot === boxId){
             userName.innerText = index.name; // sets text inside paragraph 
+            arg.append(userName); // appends user name
         }
     });
     
-    arg.append(userName); // appends user name
-
     selection(userName);
 }
 
@@ -45,11 +44,13 @@ const createButtons = () => {
     leftButton.innerText = '<';
     rightButton.innerText = '>';
 
-    leftButton.addEventListener('click', () => {
+    leftButton.addEventListener('click', (event) => {
+        event.stopPropagation();
         buttonHandler(leftButton);
     });
     
-    rightButton.addEventListener('click', () => {
+    rightButton.addEventListener('click', (event) => {
+        event.stopPropagation();
         buttonHandler(rightButton);
     });
     
