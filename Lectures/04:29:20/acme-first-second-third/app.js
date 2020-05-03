@@ -94,28 +94,30 @@ const buttonHandler = (arg) => {
     const selected = document.querySelectorAll('.selected');
 
     if(arg.className === 'right'){
-        users.forEach((ind) => {
-            if(ind.selected === true){
-                if(ind.slot === 'first'){
-                    ind.slot = 'second';
-                } else if(ind.slot === 'second'){
-                    ind.slot = 'third';
-                } 
-                render();
+        users.forEach((index) => {
+            if(index.selected === true && arg.parentNode.id === index.slot){
+                if(index.slot === 'first'){
+                    index.slot = 'second';
+                } else if(index.slot === 'second'){
+                    index.slot = 'third';
+                } else {
+                    return;
+                }
             }
         });
         render();
     }
 
     if(arg.className === 'left'){
-        users.forEach((ind) => {
-            if(ind.selected === true){
-                if(ind.slot === 'third'){
-                    ind.slot = 'second';
-                } else if(ind.slot === 'second'){
-                    ind.slot = 'first';
-                } 
-                render();
+        users.forEach((index) => {
+            if(index.selected === true && arg.parentNode.id === index.slot){
+                if(index.slot === 'third'){
+                    index.slot = 'second';
+                } else if(index.slot === 'second'){
+                    index.slot = 'first';
+                } else {
+                    return;
+                }
             }
         });
         render();
@@ -131,3 +133,21 @@ const render = () => {
 }
 
 render();
+
+const html = document.querySelector('html');
+
+// html.style.backgroundColor = 'black';
+
+html.addEventListener('mouseover', (event) => { //sorry for the eye sore
+    let x = event.clientX;
+    let y = event.clientY;
+
+    let r = Math.ceil(Math.random() * 150) + 100;
+    let g = Math.ceil(Math.random() * 150) + 100;
+    let b = Math.ceil(Math.random() * 150) + 100;
+
+    if(r%25 ===0 || g%25===0 || b%25===0){
+        html.style.backgroundColor = 'rgb(' + r + ',' + g + ',' + b + ')';
+    }
+
+});
